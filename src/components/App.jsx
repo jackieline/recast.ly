@@ -2,11 +2,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      video: exampleVideoData[0], //does not need to be named video
+      videos: exampleVideoData 
     };
   }
   
-  // method
+  clickEvent(clickedVid, e) {
+    // console.log('clicked here!', e);
+    // console.log(clickedVid);
+    this.setState({
+      video: clickedVid
+    });
+  }
   
   render() { 
     return (<div>
@@ -17,10 +24,10 @@ class App extends React.Component {
       </nav>
       <div className="row">
         <div className="col-md-7">
-          <VideoPlayer video={exampleVideoData[0]} />
+          <VideoPlayer video={this.state.video} />
         </div>
         <div className="col-md-5">
-          <VideoList videos={exampleVideoData} />
+          <VideoList myClickHandler={this.clickEvent.bind(this)} videos={this.state.videos} />
         </div>
       </div>
     </div>);

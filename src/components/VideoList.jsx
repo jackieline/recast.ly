@@ -1,9 +1,10 @@
 var VideoList = (props) => (
   <div className="video-list">
     {props.videos.map((listItem, index) =>
-      <VideoListEntry video={listItem} key={index} />
+      <VideoListEntry clicked={props.myClickHandler} video={listItem} key={index} />
     )}
   </div>
+  
 );
 
 // PropTypes tell other developers what `props` a component expects
