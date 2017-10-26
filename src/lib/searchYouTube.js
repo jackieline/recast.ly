@@ -1,11 +1,3 @@
-var options = {
-  key: window.YOUTUBE_API_KEY,
-  query: 'penguins',
-  max: 5
-};
-
-
-
 var searchYouTube = (options, callback) => {
   $.ajax({
     url: 'https://www.googleapis.com/youtube/v3/search',
