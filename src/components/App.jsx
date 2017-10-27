@@ -5,11 +5,20 @@ class App extends React.Component {
       video: startData[0], //does not need to be named 'video'
       videos: startData,
       query: 'penguins',
+      autoPlayStatus: ''
     };
   }
   
   componentDidMount() {
     this.activateSearchYT();
+  }
+
+  toggleAutoPlay() {
+    if (this.state.autoPlayStatus === '') {
+      this.setState({autoPlayStatus: '?autoplay=1'});
+    } else {
+      this.setState({autoPlayStatus: ''});
+    }
   }
     
   activateSearchYT() {
@@ -47,10 +56,10 @@ class App extends React.Component {
       </nav>
       <div className="row">
         <div className="col-md-7">
-          <VideoPlayer video={this.state.video} />
+          <VideoPlayer video={this.state.video} autoPlayStatus={this.state.autoPlayStatus} />
         </div>
         <div className="col-md-5">
-          <VideoList myClickHandler={this.clickEvent.bind(this)} videos={this.state.videos} />
+          <VideoList toggleAutoPlay={this.toggleAutoPlay.bind(this)} myClickHandler={this.clickEvent.bind(this)} videos={this.state.videos} />
         </div>
       </div>
     </div>);

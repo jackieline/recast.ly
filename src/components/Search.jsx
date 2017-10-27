@@ -14,7 +14,7 @@ class Search extends React.Component {
   }
 
   render() {
-    return (<div className="search-bar form-inline">
+    return ( <div className="search-bar form-inline">
       <input className="form-control" 
         type="text" 
         onChange={(e) => this.keyHandler(e)} 

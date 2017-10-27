@@ -1,5 +1,7 @@
 var VideoList = (props) => (
   <div className="video-list">
+    <span>Autoplay </span> <input onClick={props.toggleAutoPlay} type="checkbox" id="test1" className="toggle"/>
+    <label htmlFor="test1"></label>
     {props.videos.map((listItem, index) =>
       <VideoListEntry clicked={props.myClickHandler} video={listItem} key={index} />
     )}
