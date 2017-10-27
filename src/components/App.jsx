@@ -2,24 +2,47 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      video: exampleVideoData[0], //does not need to be named video
-      videos: exampleVideoData 
+      video: startData[0], //does not need to be named 'video'
+      videos: startData,
+      query: 'penguins',
     };
   }
   
+  componentDidMount() {
+    this.activateSearchYT();
+  }
+    
+  activateSearchYT() {
+    var options = {
+      key: window.YOUTUBE_API_KEY,
+      query: this.state.query,
+      max: 5
+    };
+    this.props.searchYouTube(options, (data) => {
+      this.setState({
+        video: data[0],
+        videos: data
+      });
+    });
+  }
+
+  searchEvent (text) {
+    this.setState({
+      query: text
+    }, this.activateSearchYT);
+  }
+
   clickEvent(clickedVid, e) {
-    // console.log('clicked here!', e);
-    // console.log(clickedVid);
     this.setState({
       video: clickedVid
     });
   }
-  
+    
   render() { 
     return (<div>
       <nav className="navbar">
         <div className="col-md-6 offset-md-3">
-          <div><h5><em>search</em> view goes here</h5></div>
+          <Search searchClicked={_.debounce(this.searchEvent.bind(this), 500)} />
         </div>
       </nav>
       <div className="row">
@@ -38,7 +61,28 @@ class App extends React.Component {
 // `var` declarations will only exist globally where explicitly defined
 window.App = App;
 
-//<div><h5><em>videoPlayer</em> view goes here</h5></div>
-// <div><h5><em>videoList</em> view goes here</h5></div>
+window.fakeVideo = {
+  kind: 'youtube#searchResult',
+  etag: '',
+  id: {
+    kind: 'youtube#video',
+    videoId: ''
+  },
+  snippet: {
+    publishedAt: '',
+    channelId: '',
+    title: '',
+    description: '',
+    thumbnails: {
+      default: {
+        url: '',
+        width: 120,
+        height: 90
+      }
+    }
+  }
+};
 
-ReactDOM.render(<App />, document.getElementById('app'));
+window.startData = Array(5).fill(fakeVideo);
+
+
